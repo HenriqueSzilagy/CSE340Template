@@ -4,3 +4,245 @@
 *:after {
   box-sizing: border-box;
 }
+
+
+body {
+  background-image: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.imagecontainer h1 {
+  margin-left: 8px;
+}
+#wrapper{
+  background-color: white;
+}
+
+header{
+  font-size: larger;
+  display: flex;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  justify-content: space-between;
+}
+  
+meta{
+  display: none;
+  visibility: hidden;
+}
+  
+
+  
+  nav {
+    background-color: #2B0E57;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  }
+  
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    width: 100%;
+}
+  
+
+  li {
+    flex: 1;
+    padding: 0.2em;
+}
+  
+
+  li a {
+    text-decoration: none;
+    color: white;
+  }
+
+  
+
+section {
+  position: relative; 
+}
+  .imagecontainer {
+    position: relative;
+}
+
+.text-block {
+  position: absolute;
+  top: 58%;
+  left: 0;
+  transform: translate(0, -50%);
+  z-index: 1;
+  color: #6821D1;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  line-height: 0.3;
+  /* padding: 1em; */
+  margin-left: 11%;
+  width: 34%;
+  /* margin-top: 0%; */
+  /* margin-bottom: 10%; */
+}
+
+.text-block h2 {
+  font-size: 2.5vw;
+  margin-bottom: 1em;
+}
+
+.text-block p {
+  font-size: 1.5vw;
+  margin-bottom: 3%;
+  margin-top: 10%;
+}
+
+#today {
+    color: white;
+    background-color: #6821D1;
+    font-size: 2vw;
+    margin: 0.1em;
+    border-radius: 0.1em;
+    line-height: 1.5;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.imagecontainer img {
+  max-width: 100%;
+  height: auto;
+}
+.imagecontainer img {
+  width: 70%;
+  margin-left: 30%;
+  height: auto;
+}
+
+.deloreaninformation {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+}
+
+.upgrade {
+  flex: 1;
+  text-align: center;
+}
+
+.upgrade h2 {
+  order: -1; 
+}
+
+.upgrade div {
+  margin-bottom: 20px; 
+}
+.upgrade {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: auto auto auto; 
+  gap: 20px; 
+  text-align: center;
+  margin-left: 2vw;
+}
+
+.upgrade h2 {
+  grid-column: span 2; 
+}
+.upgrade p {
+  color: blue;
+  text-decoration: underline;
+}
+.upgrade div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #c2c2c2;
+}
+
+.upgrade img {
+  width: 5em;
+  height: 6em;
+  background-color: white;
+}
+.upgrade h2{
+  grid-row: 1/2;
+  text-align: left;
+}
+
+.reviews {
+  flex: 1;
+  text-align: left;
+  margin-left: 3vw;
+}
+
+.reviews h2 {
+  order: -1; 
+}
+
+.reviews p {
+  margin-bottom: 10px; 
+  font-size: 1.1em;
+  line-height: 3em;
+  font-weight: bold;
+}
+header span{
+  font-size: 1.7em;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
+  color: #6f6d6d; 
+}
+header span a{
+  color: #2B0E57; 
+}
+
+header #tools {
+  text-align: center;
+  margin-top: 1.5em;
+}
+#tools a {
+  color: #2B0E57; 
+}
+.reviews p::before {
+  content: '\2022'; 
+  color: #242332; 
+  }
+
+
+@media screen and (min-width: 1024px) {
+  
+  li {
+    padding: 1em;
+  }
+  body{
+    background-image: url(/images/site/checkerboard.jpg);
+  }
+  #wrapper{
+  
+    margin-top: 0.4em;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.4em solid #6821D1;
+    border-radius: 0.4em;
+  }
+  .text-block h2 {
+    margin-bottom: 0.5em;
+  }
+  .text-block p {
+    margin-bottom: 10%;
+  } 
+  #today{
+    margin-top: 1.5em;
+  }
+
+  .deloreaninformation{
+    flex-direction: row
+  }
+
+  }

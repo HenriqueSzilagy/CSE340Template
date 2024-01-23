@@ -11,7 +11,7 @@ const inventoryRoute = require("./routes/inventoryRoute");
 
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-require("dotenv").config();
+const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
 

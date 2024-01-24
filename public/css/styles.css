@@ -5,13 +5,15 @@
   box-sizing: border-box;
 }
 
-main h1{
+main h1 {
   text-align: center;
+  margin-top: 1em;
+  font-size: 4em;
 }
 
 #inv-display img {
-  width: 13vw;
-  height: 9vw;
+  width: 40vw;
+  height: 27vw;
 }
 
 #inv-display li{
@@ -19,6 +21,7 @@ main h1{
 }
 #inv-display li{
   text-align: center;
+  margin-top: 5em
 }
 #inv-display li a {
   color: black;
@@ -31,6 +34,7 @@ main h1{
 ul#inv-display {
   display: flex;
   flex-direction: column;
+  padding: 0;
 }
 
 body {
@@ -268,5 +272,8 @@ header #tools {
   .deloreaninformation{
     flex-direction: row
   }
-
+  #inv-display img {
+    width: 16vw;
+    height: 9vw;
+  }
   }

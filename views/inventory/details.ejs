@@ -1,0 +1,17 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/');
+  } %>
+  
+  <% if (details) { %>
+    <div class="vehicle-details">
+      <!-- Display vehicle details using details object -->
+      <p><strong>Make:</strong> <%= details.inv_make %></p>
+      <p><strong>Model:</strong> <%= details.inv_model %></p>
+      <p><strong>Price:</strong> $<%= new Intl.NumberFormat('en-US').format(details.inv_price) %></p>
+      <!-- Add more details as needed -->
+    </div>
+  <% } else { %>
+    <p class="notice">Sorry, details not available for this vehicle.</p>
+  <% } %>

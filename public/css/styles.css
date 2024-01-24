@@ -28,6 +28,11 @@ main h1{
   font-size: 1.5em;
 }
 
+ul#inv-display {
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   background-image: none;
   margin-top: 1em;

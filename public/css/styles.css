@@ -276,4 +276,12 @@ header #tools {
     width: 16vw;
     height: 9vw;
   }
+  main h1 {
+    font-size: 3em;
+  }
+  ul#inv-display{
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
 }

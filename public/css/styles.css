@@ -31,8 +31,6 @@ meta{
   visibility: hidden;
 }
   
-
-  
   nav {
     background-color: #2B0E57;
     color: white;
@@ -52,28 +50,6 @@ meta{
     display: flex;
     margin: 0;
     width: 100%;
-}
-
-#inv-display {
-  flex-wrap: wrap;
-}
-
-#inv-display img {
-  width: 13vw;
-  height: 9vw;
-}
-
-#inv-display li{
-  text-align: center;
-}
-#inv-display li{
-  text-align: center;
-}
-#inv-display li a {
-  color: black;
-}
-#inv-display li span {
-  color: black;
 }
 
   li {

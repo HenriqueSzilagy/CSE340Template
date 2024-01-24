@@ -8,7 +8,7 @@
 main h1 {
   text-align: center;
   margin-top: 1em;
-  font-size: 4em;
+  font-size: 3em;
 }
 
 #inv-display img {
@@ -276,9 +276,7 @@ header #tools {
     width: 16vw;
     height: 9vw;
   }
-  main h1 {
-    font-size: 3em;
-  }
+
   ul#inv-display{
     flex-direction: row;
     flex-wrap: wrap;

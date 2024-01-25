@@ -31,6 +31,7 @@ invCont.buildVehicleDetails = async function (req, res, next) {
     title: "Vehicle Details",
     nav,
     details: vehicleData,
+    grid,
   });
 };
 

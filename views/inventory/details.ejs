@@ -8,9 +8,9 @@
       <div class="text-container">
         <!-- Display vehicle details using details object -->
           <h2><%= details.inv_make %> <%= details.inv_model %> Details</h2>
-          <p><strong>Price: </strong> $<%= details.inv_price %></p>
-          <p><strong>Description</strong> <%= details.inv_description %></p>
-          <p><strong>Color:</strong> <%= details.inv_color %></p>
+          <p class="intercalate"><strong>Price: </strong> $<%= details.inv_price %></p>
+          <p><strong>Description:</strong> <%= details.inv_description %></p>
+          <p class="intercalate"><strong>Color:</strong> <%= details.inv_color %></p>
           <p><strong>Miles:</strong> <%= details.inv_miles %></p>
           <!-- Adicione mais campos conforme necessário -->
       </div>

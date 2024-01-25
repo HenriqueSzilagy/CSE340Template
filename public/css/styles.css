@@ -9,7 +9,9 @@ h1#vehicle-title {
   margin-left: 0.4em;
 }
 
-
+.intercalate {
+  background-color: rgb(246, 247, 226);
+}
 
 main h1 {
   text-align: center;

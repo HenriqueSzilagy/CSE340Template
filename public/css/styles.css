@@ -310,10 +310,13 @@ header #tools {
   margin-top: -1.6em;
   margin-left: 2em;
   margin-right: 2em;
-  font-size: 6em;
+  font-size: 1.5vw;
 }
 .vehicle-details {
   flex-direction: row;
   margin-right: unset;
+}
+.text-container h2 {
+  font-size: 2.5vw;
 }
 }

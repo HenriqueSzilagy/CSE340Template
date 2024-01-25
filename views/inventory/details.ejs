@@ -1,9 +1,21 @@
-<% if (title) { %>
-  <h1><%= title %></h1>
-<% } else {
-  res.redirect('/');
-} %>
+<% if (details) { %>
+  
+  <h1><%= details.inv_year %> <%= details.inv_make %> <%= details.inv_model %></h1>
+  <div class="vehicle-details">
+      <div>
+        <img><%= details.inv_image %>
+      </div>
+      <div>
+        <!-- Display vehicle details using details object -->
+          <h2><%= details.inv_make %> <%= details.inv_model %> Details</h2>
+          <p><strong>Price:</strong> <%= details.inv_price %></p>
+          <p><strong>Description</strong> <%= details.inv_description %></p>
+          <p><strong>Color:</strong> <%= details.inv_color %></p>
+          <p><strong>Miles:</strong> <%= details.inv_miles %></p>
+          <!-- Adicione mais campos conforme necessário -->
+      </div>
+  </div>
+<% } else { %>
+  <p>Details not found.</p>
+<% } %>
 
-<%# messages() %>
-
-<%- grid %>

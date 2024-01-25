@@ -10,4 +10,5 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:vehicleId", invController.buildVehicleDetails)
 
 
+
 module.exports = router;

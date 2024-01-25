@@ -4,6 +4,12 @@
 *:after {
   box-sizing: border-box;
 }
+h1#vehicle-title {
+  text-align: left;
+  margin-left: 0.4em;
+}
+
+
 
 main h1 {
   text-align: center;
@@ -40,7 +46,10 @@ ul#inv-display {
 .vehicle-details {
   display: flex;
   flex-direction: column;
+  margin-right: 8em;
+  margin-left: 1em;
 }
+
 .vehicle-details img {
   width: 85vw;
   height: auto;
@@ -293,5 +302,17 @@ header #tools {
   h1#vehicle-title {
     text-align: justify;
 }
-
+.vehicle-details img {
+  width: 29vw;
+  margin-right: unset;
+}
+.text-container {
+  margin-top: -1.6em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+.vehicle-details {
+  flex-direction: row;
+  margin-right: unset;
+}
 }

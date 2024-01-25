@@ -37,6 +37,15 @@ ul#inv-display {
   padding: 0;
 }
 
+.vehicle-details {
+  display: flex;
+  flex-direction: column;
+}
+.vehicle-details img {
+  width: 85vw;
+  height: auto;
+}
+
 body {
   background-image: none;
   margin-top: 1em;
@@ -281,5 +290,8 @@ header #tools {
     flex-direction: row;
     flex-wrap: wrap;
   }
+  h1#vehicle-title {
+    text-align: justify;
+}
 
 }

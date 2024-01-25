@@ -310,6 +310,7 @@ header #tools {
   margin-top: -1.6em;
   margin-left: 2em;
   margin-right: 2em;
+  font-size: 6em;
 }
 .vehicle-details {
   flex-direction: row;

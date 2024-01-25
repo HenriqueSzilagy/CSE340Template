@@ -87,7 +87,6 @@ Util.buildVehicleDetailGrid = async function(details) {
     grid += '<p><strong>Description:</strong> ' + details.inv_description + '</p>';
     grid += '<p class="intercalate"><strong>Color:</strong> ' + details.inv_color + '</p>';
     grid += '<p><strong>Miles:</strong> ' + details.inv_miles + '</p>';
-    // Add more fields as needed
     grid += '</div>';
     grid += '</div>';
   } else {

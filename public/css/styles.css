@@ -10,7 +10,7 @@ h1#vehicle-title {
 }
 
 .intercalate {
-  background-color: rgb(246, 247, 226);
+  background-color: rgb(237 244 249);
 }
 
 main h1 {
@@ -321,4 +321,8 @@ header #tools {
 .text-container h2 {
   font-size: 2.5vw;
 }
+.text-container p {
+  padding: 0.5em;
+}
+
 }

@@ -1,9 +1,9 @@
-<% if (details) { %>
-  <div class="vehicle-details">
-    <!-- Display vehicle details using details object -->
-    <p><strong>Make:</strong> <%= details.inv_make %></p>
-    <!-- Adicione mais campos conforme necessário -->
-  </div>
-<% } else { %>
-  <p>Details not found.</p>
-<% } %>
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/');
+} %>
+
+<%# messages() %>
+
+<%- grid %>

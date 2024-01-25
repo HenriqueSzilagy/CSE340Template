@@ -67,3 +67,32 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+/* **************************************
+* Build the classification view HTML
+* ************************************ */
+
+Util.buildVehicleDetailGrid = async function(details) {
+  let grid = '';
+
+  if (details) {
+    grid += '<h1 id="vehicle-title">' + details.inv_year + ' ' + details.inv_make + ' ' + details.inv_model + '</h1>';
+    grid += '<div class="vehicle-details">';
+    grid += '<div>';
+    grid += '<img src="' + details.inv_image + '" alt="' + details.inv_make + ' ' + details.inv_model + '">';
+    grid += '</div>';
+    grid += '<div class="text-container">';
+    grid += '<h2>' + details.inv_make + ' ' + details.inv_model + ' Details</h2>';
+    grid += '<p class="intercalate"><strong>Price:</strong> $' + new Intl.NumberFormat('en-US').format(details.inv_price) + '</p>';
+    grid += '<p><strong>Description:</strong> ' + details.inv_description + '</p>';
+    grid += '<p class="intercalate"><strong>Color:</strong> ' + details.inv_color + '</p>';
+    grid += '<p><strong>Miles:</strong> ' + details.inv_miles + '</p>';
+    // Add more fields as needed
+    grid += '</div>';
+    grid += '</div>';
+  } else {
+    grid = '<p>Details not found.</p>';
+  }
+
+  return grid;
+};

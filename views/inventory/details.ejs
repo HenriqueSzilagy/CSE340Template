@@ -1,21 +1,10 @@
-<% if (details) { %>
-  
-  <h1 id="vehicle-title"><%= details.inv_year %> <%= details.inv_make %> <%= details.inv_model %></h1>
-  <div class="vehicle-details">
-      <div>
-        <img src="<%= details.inv_image %>" alt="<%= details.inv_make %> <%= details.inv_model %>">
-      </div>
-      <div class="text-container">
-        <!-- Display vehicle details using details object -->
-          <h2><%= details.inv_make %> <%= details.inv_model %> Details</h2>
-          <p class="intercalate"><strong>Price: </strong> $<%= details.inv_price %></p>
-          <p><strong>Description:</strong> <%= details.inv_description %></p>
-          <p class="intercalate"><strong>Color:</strong> <%= details.inv_color %></p>
-          <p><strong>Miles:</strong> <%= details.inv_miles %></p>
-          <!-- Adicione mais campos conforme necessário -->
-      </div>
-  </div>
-<% } else { %>
-  <p>Details not found.</p>
-<% } %>
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/');
+} %>
+
+<%# messages() %>
+
+<%- grid %>
 

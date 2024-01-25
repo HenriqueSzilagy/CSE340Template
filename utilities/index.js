@@ -86,7 +86,7 @@ Util.buildVehicleDetailGrid = async function(details) {
     grid += '<p class="intercalate"><strong>Price:</strong> $' + new Intl.NumberFormat('en-US').format(details.inv_price) + '</p>';
     grid += '<p><strong>Description:</strong> ' + details.inv_description + '</p>';
     grid += '<p class="intercalate"><strong>Color:</strong> ' + details.inv_color + '</p>';
-    grid += '<p><strong>Miles:</strong> ' + details.inv_miles + '</p>';
+    grid += '<p><strong>Miles:</strong> ' + details.inv_miles.toLocaleString('en-US') + '</p>';
     grid += '</div>';
     grid += '</div>';
   } else {

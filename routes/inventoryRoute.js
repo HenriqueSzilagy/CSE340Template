@@ -12,5 +12,8 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildVehicleDetails));
 
 
+router.get("/intentional-error", (req, res, next) => {
+    throw new Error("Intentional 500-type error");
+  });
 
 module.exports = router;

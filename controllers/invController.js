@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
+const invController = {};
 
 /* ***************************
  *  Build inventory by classification view
@@ -35,4 +36,9 @@ invCont.buildVehicleDetails = async function (req, res, next) {
   });
 };
 
-module.exports = invCont
+invController.intentionalError = (req, res, next) => {
+  // Intentional error to trigger 500-type error
+  throw new Error("Intentional 500-type error");
+};
+
+module.exports = invCont, invController

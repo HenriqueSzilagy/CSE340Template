@@ -96,18 +96,41 @@ Util.buildVehicleDetailGrid = async function(details) {
   return grid;
 };
 
-/* **************************************
-* Build the login view HTML
-* ************************************ */
 
-Util.buildLogin = async function(data) {
-  let grid = '';
+Util.buildLogin = async function (title, flashMessage) {
+  try {
+    let grid = `<h1 id=login>${title}</h1>`;
+    grid += '<div id=loginBlock>';
+    grid += '<form action="/account/login" method="post">';
+    grid += '<label for="account_email">Email Address:</label>';
+    grid += '<input type="text" id="account_email" name="account_email" required>';
 
-  if (details) {
-    
-  } else {
-    grid = '<p>Details not found.</p>';
+    grid += '<label for="account_password">Password:</label>';
+    grid += '<input type="password" id="account_password" name="account_password" required>';
+
+    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
+
+    grid += '<button type="submit">Login</button>';
+
+    grid += '</form>';
+    grid += '<p>Don\'t have an account? <a href="/account/register">Register here</a>.</p>';
+    grid += '</div>';
+    if (flashMessage) {
+      grid += `<p>${flashMessage}</p>`;
+    }
+
+    console.log('Grid after form:', grid);
+
+    return grid;
+  } catch (error) {
+    // Handle errors if needed
+    console.error('Error in buildLogin:', error);
+    throw error; // Rethrow the error to be caught by the error handler
   }
-
-  return grid;
 };
+
+
+
+
+
+

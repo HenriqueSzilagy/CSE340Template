@@ -129,6 +129,43 @@ Util.buildLogin = async function (title, flashMessage) {
   }
 };
 
+Util.buildRegister = async function (title, flashMessage) {
+  try {
+    let grid = `<h1 id=Register>${title}</h1>`;
+    grid += '<div id=registerBlock>';
+    grid += '<form action="/account/register" method="post">';
+    
+    grid += '<label for="account_firstname">First Name:</label>';
+    grid += '<input type="text" id="account_firstname" name="account_firstname" required>';
+
+    grid += '<label for="account_lastname">Last Name:</label>';
+    grid += '<input type="text" id="account_lastname" name="account_lastname" required>';
+
+    grid += '<label for="account_email">Email Address:</label>';
+    grid += '<input type="text" id="account_email" name="account_email" required>';
+
+    grid += '<label for="account_password">Password:</label>';
+    grid += '<input type="password" id="account_password" name="account_password" required>';
+
+    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
+
+    grid += '<button type="submit">Register</button>';
+
+    grid += '</form>';
+    grid += '</div>';
+    if (flashMessage) {
+      grid += `<p>${flashMessage}</p>`;
+    }
+
+    console.log('Grid after form:', grid);
+
+    return grid;
+  } catch (error) {
+    // Handle errors if needed
+    console.error('Error in buildLogin:', error);
+    throw error; // Rethrow the error to be caught by the error handler
+  }
+};
 
 
 

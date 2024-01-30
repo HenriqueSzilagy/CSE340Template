@@ -1,4 +1,4 @@
-const utilities = require("../utilities/index")
+const utilities = require("../utilities/")
 
 
 

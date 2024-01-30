@@ -10,7 +10,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const baseController = require("./controllers/baseController");
 const invController = require("./controllers/invController"); 
-const accController = require("./controller/accController")
+const accountController = require("./controllers/accountController")
 const accountRoute = require("./routes/accountRoute"); 
 const inventoryRoute = require("./routes/inventoryRoute");
 
@@ -57,7 +57,7 @@ app.use(static);
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", inventoryRoute);
-app.use("/acc", accountRoute)
+app.use("/account", accountRoute)
 // Intentional error route
 app.get("/intentional-error", utilities.handleErrors(invController.intentionalError));
 

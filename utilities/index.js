@@ -95,3 +95,19 @@ Util.buildVehicleDetailGrid = async function(details) {
 
   return grid;
 };
+
+/* **************************************
+* Build the login view HTML
+* ************************************ */
+
+Util.buildLogin = async function(data) {
+  let grid = '';
+
+  if (details) {
+    
+  } else {
+    grid = '<p>Details not found.</p>';
+  }
+
+  return grid;
+};

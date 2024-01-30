@@ -37,7 +37,6 @@ invCont.buildVehicleDetails = async function (req, res, next) {
 };
 
 invController.intentionalError = (req, res, next) => {
-  // Intentional error to trigger 500-type error
   throw new Error("Intentional 500-type error");
 };
 

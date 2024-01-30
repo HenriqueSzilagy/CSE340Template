@@ -6,8 +6,11 @@
 /* ***********************
  * Require Statements
  *************************/
+const session = require("express-session")
+const pool = require('./database/')
 const baseController = require("./controllers/baseController");
 const invController = require("./controllers/invController"); 
+const accController = require("./routes/accountRoute")
 const inventoryRoute = require("./routes/inventoryRoute");
 
 const express = require("express");
@@ -16,6 +19,27 @@ require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
 const utilities = require("./utilities/");
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 /* ***********************
  * View Engine and Templates
@@ -32,7 +56,7 @@ app.use(static);
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", inventoryRoute);
-
+app.use("/acc", accRoute)
 // Intentional error route
 app.get("/intentional-error", utilities.handleErrors(invController.intentionalError));
 

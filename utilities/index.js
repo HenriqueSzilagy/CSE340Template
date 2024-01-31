@@ -109,6 +109,7 @@ Util.buildLogin = async function (title, flashMessage) {
     grid += '<input type="password" id="account_password" name="account_password" required>';
 
     grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
+    grid += '<span id="pswdBtn">Show Password</span>';
 
     grid += '<button type="submit">Login</button>';
 
@@ -121,17 +122,36 @@ Util.buildLogin = async function (title, flashMessage) {
 
     console.log('Grid after form:', grid);
 
-    return grid;
-  } catch (error) {
-    // Handle errors if needed
-    console.error('Error in buildLogin:', error);
-    throw error; // Rethrow the error to be caught by the error handler
-  }
+    grid += `
+    <script>
+      const pswdBtn = document.querySelector("#pswdBtn");
+      pswdBtn.addEventListener("click", function() {
+        const pswdInput = document.getElementById("account_password");
+        const type = pswdInput.getAttribute("type");
+        if (type == "password") {
+          pswdInput.setAttribute("type", "text");
+          pswdBtn.innerHTML = "Hide Password";
+        } else {
+          pswdInput.setAttribute("type", "password");
+          pswdBtn.innerHTML = "Show Password";
+        }
+      });
+    </script>
+  `;
+
+  console.log('Grid after form:', grid);
+
+  return grid;
+} catch (error) {
+  // Handle errors if needed
+  console.error('Error in buildLogin:', error);
+  throw error; // Rethrow the error to be caught by the error handler
+}
 };
 
 Util.buildRegister = async function (title, flashMessage) {
   try {
-    let grid = `<h1 id=Register>${title}</h1>`;
+    let grid = `<h1 id=register>${title}</h1>`;
     grid += '<div id=registerBlock>';
     grid += '<form action="/account/register" method="post">';
     
@@ -148,6 +168,7 @@ Util.buildRegister = async function (title, flashMessage) {
     grid += '<input type="password" id="account_password" name="account_password" required>';
 
     grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
+    grid += '<span id="pswdBtn">Show Password</span>';
 
     grid += '<button type="submit">Register</button>';
 
@@ -157,14 +178,31 @@ Util.buildRegister = async function (title, flashMessage) {
       grid += `<p>${flashMessage}</p>`;
     }
 
-    console.log('Grid after form:', grid);
+    grid += `
+    <script>
+      const pswdBtn = document.querySelector("#pswdBtn");
+      pswdBtn.addEventListener("click", function() {
+        const pswdInput = document.getElementById("account_password");
+        const type = pswdInput.getAttribute("type");
+        if (type == "password") {
+          pswdInput.setAttribute("type", "text");
+          pswdBtn.innerHTML = "Hide Password";
+        } else {
+          pswdInput.setAttribute("type", "password");
+          pswdBtn.innerHTML = "Show Password";
+        }
+      });
+    </script>
+  `;
 
-    return grid;
-  } catch (error) {
-    // Handle errors if needed
-    console.error('Error in buildLogin:', error);
-    throw error; // Rethrow the error to be caught by the error handler
-  }
+  console.log('Grid after form:', grid);
+
+  return grid;
+} catch (error) {
+  // Handle errors if needed
+  console.error('Error in buildLogin:', error);
+  throw error; // Rethrow the error to be caught by the error handler
+}
 };
 
 

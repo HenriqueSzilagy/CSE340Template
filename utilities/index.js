@@ -149,15 +149,31 @@ Util.buildLogin = async function (title, flashMessage) {
 }
 };
 
-Util.buildRegister = async function (title, flashMessage) {
+Util.buildRegister = async function (title, flashMessage, errors) {
   try {
     let grid = `<h1 id=register>${title}</h1>`;
+
+    // Log flash message
+    console.log('Flash Message:', flashMessage);
+
     if (flashMessage) {
       grid += `<p>${flashMessage}</p>`;
+    }    
+
+    if (errors) {
+      grid += '<ul class="notice">';
+      errors.forEach(error => {
+        grid += `<li>${error.msg}</li>`;
+      });
+      grid += '</ul>';
     }
+
     grid += '<div id=registerBlock>';
     grid += '<form action="/account/register" method="post">';
     
+    // Insert console.log to log the title
+    console.log('Title:', title);
+
     grid += '<label for="account_firstname">First Name:</label>';
     grid += '<input type="text" id="account_firstname" name="account_firstname" required>';
 
@@ -170,8 +186,10 @@ Util.buildRegister = async function (title, flashMessage) {
     grid += '<label for="account_password">Password:</label>';
     grid += '<input type="password" id="account_password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">';
     
+    // Insert console.log to log the grid so far
+    console.log('Grid so far:', grid);
 
-    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
+    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character' + '</p>'
     grid += '<span id="pswdBtn">Show Password</span>';
 
     grid += '<button type="submit">Register</button>';
@@ -179,7 +197,6 @@ Util.buildRegister = async function (title, flashMessage) {
     grid += '</form>';
     grid += '</div>';
   
-
     grid += `
     <script>
       const pswdBtn = document.querySelector("#pswdBtn");
@@ -197,17 +214,13 @@ Util.buildRegister = async function (title, flashMessage) {
     </script>
   `;
 
-  console.log('Grid after form:', grid);
+    // Insert console.log to log the final grid
+    console.log('Final Grid:', grid);
 
-  return grid;
-} catch (error) {
-  // Handle errors if needed
-  console.error('Error in buildLogin:', error);
-  throw error; // Rethrow the error to be caught by the error handler
-}
+    return grid;
+  } catch (error) {
+    // Handle errors if needed
+    console.error('Error in buildLogin:', error);
+    throw error; // Rethrow the error to be caught by the error handler
+  }
 };
-
-
-
-
-

@@ -30,15 +30,16 @@ async function buildRegister(req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
-    grid,
+    grid,  // Pass the 'grid' variable to the view
     message: req.flash('notice'),
+    errors: null,
   })
 }
 
 /* ****************************************
 *  Process Registration
 * *************************************** */
-async function registerAccount(req, res) {
+async function registerAccount(req, res, next) {
   try {
     const { account_firstname, account_lastname, account_email, account_password } = req.body;
 
@@ -65,11 +66,11 @@ async function registerAccount(req, res) {
     res.status(500).render("errors/error", {
       title: "Error",
       nav,
+      grid: null,  // Defina grid como null ou como você preferir
       error: "Internal Server Error",
     });
   }
 }
-
 
 module.exports = { buildLogin, buildRegister, registerAccount }
 

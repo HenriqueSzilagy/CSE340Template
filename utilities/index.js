@@ -100,13 +100,16 @@ Util.buildVehicleDetailGrid = async function(details) {
 Util.buildLogin = async function (title, flashMessage) {
   try {
     let grid = `<h1 id=login>${title}</h1>`;
+    if (flashMessage) {
+      grid += `<p>${flashMessage}</p>`;
+    }
     grid += '<div id=loginBlock>';
     grid += '<form action="/account/login" method="post">';
     grid += '<label for="account_email">Email Address:</label>';
-    grid += '<input type="text" id="account_email" name="account_email" required>';
+    grid += '<input type="email" id="account_email" name="account_email" required>';
 
     grid += '<label for="account_password">Password:</label>';
-    grid += '<input type="password" id="account_password" name="account_password" required>';
+    grid += '<input type="password" id="account_password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">>';
 
     grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
     grid += '<span id="pswdBtn">Show Password</span>';
@@ -116,9 +119,6 @@ Util.buildLogin = async function (title, flashMessage) {
     grid += '</form>';
     grid += '<p>Don\'t have an account? <a href="/account/register">Register here</a>.</p>';
     grid += '</div>';
-    if (flashMessage) {
-      grid += `<p>${flashMessage}</p>`;
-    }
 
     console.log('Grid after form:', grid);
 
@@ -152,6 +152,9 @@ Util.buildLogin = async function (title, flashMessage) {
 Util.buildRegister = async function (title, flashMessage) {
   try {
     let grid = `<h1 id=register>${title}</h1>`;
+    if (flashMessage) {
+      grid += `<p>${flashMessage}</p>`;
+    }
     grid += '<div id=registerBlock>';
     grid += '<form action="/account/register" method="post">';
     
@@ -162,10 +165,11 @@ Util.buildRegister = async function (title, flashMessage) {
     grid += '<input type="text" id="account_lastname" name="account_lastname" required>';
 
     grid += '<label for="account_email">Email Address:</label>';
-    grid += '<input type="text" id="account_email" name="account_email" required>';
+    grid += '<input type="email" id="account_email" name="account_email" required>';
 
     grid += '<label for="account_password">Password:</label>';
-    grid += '<input type="password" id="account_password" name="account_password" required>';
+    grid += '<input type="password" id="account_password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">';
+    
 
     grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
     grid += '<span id="pswdBtn">Show Password</span>';
@@ -174,9 +178,7 @@ Util.buildRegister = async function (title, flashMessage) {
 
     grid += '</form>';
     grid += '</div>';
-    if (flashMessage) {
-      grid += `<p>${flashMessage}</p>`;
-    }
+  
 
     grid += `
     <script>

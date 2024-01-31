@@ -1,7 +1,11 @@
 <% if (grid) { %>
-  <%- grid %>
+  <div id="grid-container">
+    <%- grid %>
+  </div>
 <% } else { %>
   <p>Sorry, there was an issue loading the grid.</p>
 <% } %>
 
-<script src="/path/to/passwordToggle.js"></script>
+<div id="message-container">
+  <%- message %>
+</div>

@@ -12,7 +12,8 @@ async function buildLogin(req, res, next) {
     res.render("account/login", {
       title: "Login",
       nav,
-      grid, 
+      grid,
+      message: req.flash('notice'),
     });
   } catch (error) {
     console.error('Error in buildLogin:', error);
@@ -24,12 +25,13 @@ async function buildLogin(req, res, next) {
 *  Deliver registration view
 * *************************************** */
 async function buildRegister(req, res, next) {
-  let nav = await utilities.getNav()
-  let grid = await utilities.buildRegister("Register", ""); 
+  let nav = await utilities.getNav();
+  let grid = await utilities.buildRegister("Register", "");
   res.render("account/register", {
     title: "Register",
     nav,
     grid,
+    message: req.flash('notice'),
   })
 }
 
@@ -37,33 +39,37 @@ async function buildRegister(req, res, next) {
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
-  let nav = await utilities.getNav()
-  const { account_firstname, account_lastname, account_email, account_password } = req.body
+  try {
+    const { account_firstname, account_lastname, account_email, account_password } = req.body;
 
-  const regResult = await accountModel.registerAccount(
-    account_firstname,
-    account_lastname,
-    account_email,
-    account_password
-  )
+    const regResult = await accountModel.registerAccount(
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_password
+    );
 
-  if (regResult) {
-    req.flash(
-      "notice",
-      `Congratulations, you\'re registered ${account_firstname}. Please log in.`
-    )
-    res.status(201).render("account/login", {
-      title: "Login",
+    if (regResult.rows.length > 0) {
+      req.flash(
+        "notice",
+        `Congratulations, you're registered ${account_firstname}. Please log in.`
+      );
+      res.redirect("/account/login"); // Redireciona para a tela de login
+    } else {
+      req.flash("notice", "Sorry, the registration failed.");
+      res.redirect("/account/register"); // Redireciona para a tela de registro em caso de falha
+    }
+  } catch (error) {
+    console.error('Error in registerAccount:', error);
+    let nav = await utilities.getNav();
+    res.status(500).render("errors/error", {
+      title: "Error",
       nav,
-    })
-  } else {
-    req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("account/register", {
-      title: "Registration",
-      nav,
-    })
+      error: "Internal Server Error",
+    });
   }
 }
+
 
 module.exports = { buildLogin, buildRegister, registerAccount }
 

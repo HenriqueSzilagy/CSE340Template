@@ -68,7 +68,7 @@ app.get("/intentional-error", utilities.handleErrors(invController.intentionalEr
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-  next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
+  next({ status: 404, messages: 'Sorry, we appear to have lost that page.' });
 });
 
 /* ***********************
@@ -77,11 +77,11 @@ app.use(async (req, res, next) => {
 *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  const message = err.status === 404 ? err.message : 'Oh no! There was a crash. Maybe try a different route?';
+  console.error(`Error at: "${req.originalUrl}": ${err.messages}`);
+  const messages = err.status === 404 ? err.messages : 'Oh no! There was a crash. Maybe try a different route?';
   res.render("errors/error", {
     title: err.status || 'Server Error',
-    message,
+    messages,
     nav
   });
 });

@@ -1,11 +1,38 @@
-<% if (grid) { %>
-  <div id="grid-container">
-    <%- grid %>
-  </div>
-<% } else { %>
-  <p>Sorry, there was an issue loading the grid.</p>
+<h1 id="login"><%= title %></h1>
+<% if (message) { %>
+  <p><%= message %></p>
 <% } %>
 
-<div id="message-container">
-  <%- message %>
+<div id="loginBlock">
+  <form action="/account/login" method="post">
+    <label for="account_email">Email Address:</label>
+    <input type="email" id="account_email" name="account_email" required>
+
+    <label for="account_password">Password:</label>
+    <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+    <p>Password must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character</p>
+    <span id="pswdBtn">Show Password</span>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p>Don't have an account? <a href="/account/register">Register here</a>.</p>
 </div>
+
+<script>
+  const pswdBtn = document.querySelector("#pswdBtn");
+  pswdBtn.addEventListener("click", function () {
+    const pswdInput = document.getElementById("account_password");
+    const type = pswdInput.getAttribute("type");
+    if (type == "password") {
+      pswdInput.setAttribute("type", "text");
+      pswdBtn.innerHTML = "Hide Password";
+    } else {
+      pswdInput.setAttribute("type", "password");
+      pswdBtn.innerHTML = "Show Password";
+    }
+  });
+</script>
+
+<!-- console.log('Grid after form:', grid); -->

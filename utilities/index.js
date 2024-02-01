@@ -98,129 +98,32 @@ Util.buildVehicleDetailGrid = async function(details) {
 
 
 Util.buildLogin = async function (title, flashMessage) {
-  try {
-    let grid = `<h1 id=login>${title}</h1>`;
-    if (flashMessage) {
-      grid += `<p>${flashMessage}</p>`;
-    }
-    grid += '<div id=loginBlock>';
-    grid += '<form action="/account/login" method="post">';
-    grid += '<label for="account_email">Email Address:</label>';
-    grid += '<input type="email" id="account_email" name="account_email" required>';
+  let grid = '';
 
-    grid += '<label for="account_password">Password:</label>';
-    grid += '<input type="password" id="account_password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">>';
+  // Include header and navigation
+  grid += '<%- include(\'../partials/header\', { title: "Home" }) %>';
+  grid += '<%- include(\'../partials/navigation\') %>';
 
-    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character' + '</p>'
-    grid += '<span id="pswdBtn">Show Password</span>';
+  // Add your specific register content here
 
-    grid += '<button type="submit">Login</button>';
-
-    grid += '</form>';
-    grid += '<p>Don\'t have an account? <a href="/account/register">Register here</a>.</p>';
-    grid += '</div>';
-
-    console.log('Grid after form:', grid);
-
-    grid += `
-    <script>
-      const pswdBtn = document.querySelector("#pswdBtn");
-      pswdBtn.addEventListener("click", function() {
-        const pswdInput = document.getElementById("account_password");
-        const type = pswdInput.getAttribute("type");
-        if (type == "password") {
-          pswdInput.setAttribute("type", "text");
-          pswdBtn.innerHTML = "Hide Password";
-        } else {
-          pswdInput.setAttribute("type", "password");
-          pswdBtn.innerHTML = "Show Password";
-        }
-      });
-    </script>
-  `;
-
-  console.log('Grid after form:', grid);
+  // Include footer
+  grid += '<%- include(\'../partials/footer\', { title: "Home" }) %>';
 
   return grid;
-} catch (error) {
-  // Handle errors if needed
-  console.error('Error in buildLogin:', error);
-  throw error; // Rethrow the error to be caught by the error handler
 }
-};
 
-Util.buildRegister = async function (title, flashMessage, errors) {
-  try {
-    let grid = `<h1 id=register>${title}</h1>`;
 
-    // Log flash message
-    console.log('Flash Message:', flashMessage);
+Util.buildRegister = async function (title) {
+  let grid = '';
 
-    if (flashMessage) {
-      grid += `<p>${flashMessage}</p>`;
-    }    
+  // Include header and navigation
+  grid += '<%- include(\'../partials/header\', { title: "Home" }) %>';
+  grid += '<%- include(\'../partials/navigation\') %>';
 
-    if (errors) {
-      grid += '<ul class="notice">';
-      errors.forEach(error => {
-        grid += `<li>${error.msg}</li>`;
-      });
-      grid += '</ul>';
-    }
+  // Add your specific register content here
 
-    grid += '<div id=registerBlock>';
-    grid += '<form action="/account/register" method="post">';
-    
-    // Insert console.log to log the title
-    console.log('Title:', title);
+  // Include footer
+  grid += '<%- include(\'../partials/footer\', { title: "Home" }) %>';
 
-    grid += '<label for="account_firstname">First Name:</label>';
-    grid += '<input type="text" id="account_firstname" name="account_firstname" required>';
-
-    grid += '<label for="account_lastname">Last Name:</label>';
-    grid += '<input type="text" id="account_lastname" name="account_lastname" required>';
-
-    grid += '<label for="account_email">Email Address:</label>';
-    grid += '<input type="email" id="account_email" name="account_email" required>';
-
-    grid += '<label for="account_password">Password:</label>';
-    grid += '<input type="password" id="account_password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">';
-    
-    // Insert console.log to log the grid so far
-    console.log('Grid so far:', grid);
-
-    grid += '<p>' + 'Password must be minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character' + '</p>'
-    grid += '<span id="pswdBtn">Show Password</span>';
-
-    grid += '<button type="submit">Register</button>';
-
-    grid += '</form>';
-    grid += '</div>';
-  
-    grid += `
-    <script>
-      const pswdBtn = document.querySelector("#pswdBtn");
-      pswdBtn.addEventListener("click", function() {
-        const pswdInput = document.getElementById("account_password");
-        const type = pswdInput.getAttribute("type");
-        if (type == "password") {
-          pswdInput.setAttribute("type", "text");
-          pswdBtn.innerHTML = "Hide Password";
-        } else {
-          pswdInput.setAttribute("type", "password");
-          pswdBtn.innerHTML = "Show Password";
-        }
-      });
-    </script>
-  `;
-
-    // Insert console.log to log the final grid
-    console.log('Final Grid:', grid);
-
-    return grid;
-  } catch (error) {
-    // Handle errors if needed
-    console.error('Error in buildLogin:', error);
-    throw error; // Rethrow the error to be caught by the error handler
-  }
-};
+  return grid;
+}

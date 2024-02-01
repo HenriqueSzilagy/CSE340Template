@@ -30,7 +30,7 @@ async function buildRegister(req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
-    grid,  // Pass the 'grid' variable to the view
+    grid, 
     message: req.flash('notice'),
     errors: null,
   })

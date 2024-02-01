@@ -67,10 +67,13 @@ async function registerAccount(req, res, next) {
       title: "Error",
       nav,
       grid: null,  // Defina grid como null ou como você preferir
+      message: req.flash('notice'),
       error: "Internal Server Error",
     });
+    next(error); // Adiciona esta linha para repassar o erro ao próximo middleware
   }
 }
 
 module.exports = { buildLogin, buildRegister, registerAccount }
+
 

@@ -1,7 +1,7 @@
 <h1 id="login"><%= title %></h1>
-<% if (messages) { %>
-  <p><%= messages %></p>
-<% } %>
+
+
+<%- messages() %>
 
 <div id="loginBlock">
   <form action="/account/login" method="post">

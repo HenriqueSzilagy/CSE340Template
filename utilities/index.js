@@ -24,15 +24,6 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-
-module.exports = Util
 
 
 /* **************************************
@@ -68,6 +59,8 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+
+
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -96,34 +89,11 @@ Util.buildVehicleDetailGrid = async function(details) {
   return grid;
 };
 
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-Util.buildLogin = async function (title, flashMessage) {
-  let grid = '';
-
-  // Include header and navigation
-  grid += '<%- include(\'../partials/header\', { title: "Home" }) %>';
-  grid += '<%- include(\'../partials/navigation\') %>';
-
-  // Add your specific register content here
-
-  // Include footer
-  grid += '<%- include(\'../partials/footer\', { title: "Home" }) %>';
-
-  return grid;
-}
-
-
-Util.buildRegister = async function (title) {
-  let grid = '';
-
-  // Include header and navigation
-  grid += '<%- include(\'../partials/header\', { title: "Home" }) %>';
-  grid += '<%- include(\'../partials/navigation\') %>';
-
-  // Add your specific register content here
-
-  // Include footer
-  grid += '<%- include(\'../partials/footer\', { title: "Home" }) %>';
-
-  return grid;
-}
+module.exports = Util

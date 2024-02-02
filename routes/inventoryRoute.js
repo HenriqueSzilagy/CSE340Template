@@ -3,6 +3,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
 const utilities = require("../utilities"); 
+const validate = require("../utilities/addClassification-validation");
 
 
 // Route to build inventory by classification view
@@ -18,6 +19,12 @@ router.get("/", utilities.handleErrors(invController.buildAddClassification));
 router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification));
 
 router.post("/add-classification", utilities.handleErrors(invController.addNewClassification));
+
+router.post(
+  "/add-classification",
+  validate.classificationRules(),
+  validate.checkClassificationData,
+  utilities.handleErrors(invCont.addNewClassification))
 
 
 router.get("/intentional-error", (req, res, next) => {

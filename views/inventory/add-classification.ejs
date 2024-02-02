@@ -3,7 +3,7 @@
   </h1>
   
   <%- messages() %>
-  
+
   <% if (errors) { %>
     <ul class="notice">
         <% errors.array().forEach(error=> { %>
@@ -13,6 +13,7 @@
             <% }) %>
     </ul>
     <% } %>
+  
   
   <div id="newClassificationBlock">
     <form action="/inv/add-classification" method="post">

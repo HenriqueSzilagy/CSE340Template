@@ -72,12 +72,14 @@ invCont.addNewClassification = async function (req, res) {
   const addResult = await invModel.addNewClassification(classification_name)
 
   if (addResult) {
-    Util.updateNav()
+    await Util.updateNav()
+
     req.flash(
       "notice",
       `Successfully added ${classification_name} classification.`
     )
-    res.status(201).render('./inventory/add-classification', {
+
+    res.status(201).render('./inv', {
       title: "Add New Classification",
       nav,
     })

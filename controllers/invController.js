@@ -72,7 +72,7 @@ async function addNewClassification(req, res) {
   const addResult = await invModel.addNewClassification(classification_name)
 
   if (addResult) {
-    utilities.updateNav()
+    Util.updateNav()
     req.flash(
       "notice",
       `Successfully added ${classification_name} classification.`

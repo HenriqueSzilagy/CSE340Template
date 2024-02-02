@@ -41,11 +41,21 @@ async function getVehicleDetails(inv_id) {
   }
 }
 
+function isValidClassificationName(classification_name) {
+  const pattern = /^[^\s]+$/;
+  return pattern.test(classification_name);
+}
+
+
 /* *****************************
 *   Add new classification
 * *************************** */
 async function addNewClassification(classification_name){
   try {
+    // Validar o nome da classificação
+    if (!isValidClassificationName(classification_name)) {
+      throw new Error("Invalid classification name. It should not contain spaces or special characters.");
+    }
     const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
     return await pool.query(sql, [classification_name])
   } catch (error) {
@@ -54,5 +64,5 @@ async function addNewClassification(classification_name){
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetails, addNewClassification};
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetails, addNewClassification, isValidClassificationName};
 

@@ -340,6 +340,13 @@ h1#login, h1#register {
   margin-bottom: 2vw;
 }
 
+div#managementLinks {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5vw;
+  margin-left: 4vw;
+}
+
 @media screen and (min-width: 1024px) {
   
   div#loginBlock, div#registerBlock{

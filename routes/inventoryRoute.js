@@ -13,6 +13,13 @@ router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildVehic
 
 router.get("/", utilities.handleErrors(invController.buildManagement));
 
+router.get("/", utilities.handleErrors(invController.buildAddClassification));
+
+router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification));
+
+router.post("/add-classification", utilities.handleErrors(invController.addNewClassification));
+
+
 router.get("/intentional-error", (req, res, next) => {
     throw new Error("Intentional 500-type error");
   });

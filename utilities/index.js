@@ -88,7 +88,12 @@ Util.buildVehicleDetailGrid = async function(details) {
 
   return grid;
 };
-
+async function updateNav() {
+  // Implement logic to fetch the latest navigation data
+  // For example, fetching it from the database
+  const latestNav = await fetchLatestNavData();
+  return latestNav;
+}
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

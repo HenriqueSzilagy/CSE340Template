@@ -49,4 +49,47 @@ invController.intentionalError = (req, res, next) => {
   throw new Error("Intentional 500-type error");
 };
 
-module.exports = { invCont, invController, buildManagement };
+
+/* ****************************************
+*  Deliver add classification view
+* *************************************** */
+async function buildAddClassification(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+    title: "Add New Classification",
+    nav,
+    errors: null,
+  })
+};
+
+/* ****************************************
+*  Process add
+* *************************************** */
+async function addNewClassification(req, res) {
+  let nav = await utilities.getNav()
+  const { classification_name } = req.body
+
+  const addResult = await invModel.addNewClassification(classification_name)
+
+  if (addResult) {
+    utilities.updateNav()
+    req.flash(
+      "notice",
+      `Successfully added ${classification_name} classification.`
+    )
+    res.status(201).render('./inventory/add-classification', {
+      title: "Add New Classification",
+      nav,
+    })
+  } else {
+    req.flash("Failed to add ${classification_name} classification.")
+    res.status(501).render("/inv/add-classification", {
+      title: "Add New Classification",
+      nav,
+    })
+  }
+}
+
+module.exports = { invCont, invController, buildManagement, buildAddClassification, addNewClassification };
+
+

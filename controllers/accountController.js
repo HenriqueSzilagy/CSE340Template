@@ -81,11 +81,4 @@ async function loginAccount(req, res) {
   }
 }
 
-module.exports = {
-  registerAccount,
-  loginAccount,
-};
-
-
-
 module.exports = { buildLogin, buildRegister, registerAccount, loginAccount,}

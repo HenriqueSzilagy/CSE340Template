@@ -2,7 +2,6 @@ const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
-const invController = {};
 
 /* ***************************
  *  Build inventory by classification view
@@ -20,6 +19,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+
 /* ***************************
  *  Build vehicle details view
  * ************************** */
@@ -27,16 +27,16 @@ invCont.buildVehicleDetails = async function (req, res, next) {
   const vehicleId = req.params.vehicleId; 
   const vehicleData = await invModel.getVehicleDetails(vehicleId)
   const grid = await utilities.buildVehicleDetailGrid(vehicleData)
-  const nav = await utilities.getNav();
+  const nav = await utilities.getNav()
   res.render("./inventory/details", {
     title: "Vehicle Details",
     nav,
     details: vehicleData,
     grid,
-  });
-};
+  })
+}
  
-async function buildManagement(req, res, next) {
+invCont.buildManagement = async function(req, res, next) {
   const nav = await utilities.getNav();
   res.render("./inventory/management", {
     title: "Vehicle Management",
@@ -45,7 +45,7 @@ async function buildManagement(req, res, next) {
   });
 };
 
-invController.intentionalError = (req, res, next) => {
+invCont.intentionalError = (req, res, next) => {
   throw new Error("Intentional 500-type error");
 };
 
@@ -53,7 +53,7 @@ invController.intentionalError = (req, res, next) => {
 /* ****************************************
 *  Deliver add classification view
 * *************************************** */
-async function buildAddClassification(req, res, next) {
+invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("./inventory/add-classification", {
     title: "Add New Classification",
@@ -65,7 +65,7 @@ async function buildAddClassification(req, res, next) {
 /* ****************************************
 *  Process add
 * *************************************** */
-async function addNewClassification(req, res) {
+invCont.addNewClassification = async function (req, res) {
   let nav = await utilities.getNav()
   const { classification_name } = req.body
 
@@ -90,6 +90,6 @@ async function addNewClassification(req, res) {
   }
 }
 
-module.exports = { invCont, invController, buildManagement, buildAddClassification, addNewClassification };
 
+module.exports = invCont
 

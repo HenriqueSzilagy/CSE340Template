@@ -20,10 +20,6 @@ router.get('/add-classification', utilities.handleErrors(invController.buildAddC
 router.post("/add-classification", utilities.handleErrors(invController.addNewClassification));
 
 
-
-
-
-
 router.get("/intentional-error", (req, res, next) => {
     throw new Error("Intentional 500-type error");
   });

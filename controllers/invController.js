@@ -66,31 +66,28 @@ invCont.buildAddClassification = async function (req, res, next) {
 *  Process add
 * *************************************** */
 invCont.addNewClassification = async function (req, res) {
-  let nav = await utilities.getNav()
-  const { classification_name } = req.body
+  let nav = await utilities.getNav();
+  const { classification_name } = req.body;
 
-  const addResult = await invModel.addNewClassification(classification_name)
+  const addResult = await invModel.addNewClassification(classification_name);
 
   if (addResult) {
-    await Util.updateNav()
-
-    req.flash(
-      "notice",
-      `Successfully added ${classification_name} classification.`
-    )
-
-    res.status(201).render('./inv', {
+    await utilities.updateNav(); // Chame a função de atualização da navegação
+    req.flash("notice", `Successfully added ${classification_name} classification.`);
+    res.status(201).render("./inventory/add-classification", {
       title: "Add New Classification",
-      nav,
-    })
+      nav, 
+      errors:null,
+    });
   } else {
-    req.flash("Failed to add ${classification_name} classification.")
-    res.status(501).render("/inv/add-classification", {
+    req.flash("notice", `Failed to add ${classification_name} classification.`);
+    res.status(501).render("./inventory/add-classification", {
       title: "Add New Classification",
-      nav,
-    })
+      nav, 
+      errors:null,
+    });
   }
-}
+};
 
 
 module.exports = invCont

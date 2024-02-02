@@ -1,27 +1,24 @@
 <h1 id="newClassification">
-    <%= title %>
-  </h1>
-  
-  <%- messages() %>
+  <%= title %>
+</h1>
 
-  <% if (errors) { %>
-    <ul class="notice">
-        <% errors.array().forEach(error=> { %>
-            <li>
-                <%= error.msg %>
-            </li>
-            <% }) %>
-    </ul>
-    <% } %>
-  
-  
-  <div id="newClassificationBlock">
-    <form action="/inv/add-classification" method="post">
-      <label for="classification_name">Classification Name:</label>
-      <p>NAME MUST BE ALPHABETIC CHARACTERS ONLY.'</p>
-      <input type="text" name="classification_name" id="classificationName" required value="<%= locals.classification_name %>" pattern="^[a-zA-Z0-9]+$">
-    
-      <button type="submit">Add Classification</button>
-    </form>
-  </div>
-  
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error=> { %>
+      <li>
+        <%= error.msg %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<div id="newClassificationBlock">
+  <form action="/inv/add-classification" method="post">
+    <label for="classification_name">Classification Name:</label>
+    <p>NAME MUST BE ALPHABETIC CHARACTERS ONLY.'</p>
+    <input type="text" name="classification_name" id="classificationName" required value="<%= locals.classification_name %>" pattern="^[a-zA-Z0-9]+$">
+    <button type="submit">Add Classification</button>
+  </form>
+</div>

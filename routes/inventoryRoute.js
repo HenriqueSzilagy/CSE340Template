@@ -18,13 +18,11 @@ router.get("/", utilities.handleErrors(invController.buildAddClassification));
 
 router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification));
 
-router.post("/add-classification", utilities.handleErrors(invController.addNewClassification));
-
 router.post(
   "/add-classification",
   validate.classificationRules(),
   validate.checkClassificationData,
-  utilities.handleErrors(invCont.addNewClassification))
+  utilities.handleErrors(invController.addNewClassification))
 
 
 router.get("/intentional-error", (req, res, next) => {

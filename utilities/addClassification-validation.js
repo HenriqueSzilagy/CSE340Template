@@ -1,4 +1,4 @@
-const utilities = require("../utilities")
+const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 
@@ -21,17 +21,16 @@ validate.classificationRules = () => {
    * Check data and return errors or continue to classification addition
    * ***************************** */
   validate.checkClassificationData = async (req, res, next) => {
-    const { classificationName } = req.body;
-    let errors = validationResult(req);
-  
+    const { classification_name } = req.body;
+    let errors = []
+    errors = validationResult(req)
     if (!errors.isEmpty()) {
-      // Handle validation errors, render the view with error messages
-      let nav = await utilities.getNav(); // assuming you have a function to get navigation
+      let nav = await utilities.getNav(); 
       res.render("inventory/add-classification", {
         errors,
         title: "Add Classification",
         nav,
-        classificationName,
+        classification_name,
       });
       return;
     }

@@ -35,9 +35,18 @@ invCont.buildVehicleDetails = async function (req, res, next) {
     grid,
   });
 };
+ 
+async function buildManagement(req, res, next) {
+  const nav = await utilities.getNav();
+  res.render("./inventory/management", {
+    title: "Vehicle Management",
+    nav,
+    errors: null,
+  });
+};
 
 invController.intentionalError = (req, res, next) => {
   throw new Error("Intentional 500-type error");
 };
 
-module.exports = invCont, invController
+module.exports = { invCont, invController, buildManagement };

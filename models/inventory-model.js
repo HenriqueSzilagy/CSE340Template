@@ -67,20 +67,16 @@ async function addNewClassification(classification_name){
 /* *****************************
 *   Add new Vehicle
 * *************************** */
-async function addNewVehicle(classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color){
-  try {
-    // Validar o nome da classificação
-    if (!isValidClassificationName(classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color)) {
-      throw new Error("Invalid vehicle information.");
-    }
-    const sql = "INSERT INTO inventory (classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inc_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
-    return await pool.query(sql, [classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color])
+async function addNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id){
+  try{
+    const sql = "INSERT INTO inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
+    return await pool.query(sql, [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id])
   } catch (error) {
-    return error.messages
+    return error.message
   }
 }
 
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetails, addNewClassification, isValidClassificationName, addNewClassification};
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleDetails, addNewClassification, isValidClassificationName, addNewVehicle};
 

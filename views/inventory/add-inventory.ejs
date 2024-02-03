@@ -14,10 +14,10 @@
     </ul>
   <% } %>
   
-  [<div id="newInventoryBlock">
+  <div id="newInventoryBlock">
     <form action="/inv/add-inventory" method="post">
 
-      <%= getSelect %>
+      <%- classification %>
 
       <label for="inv_make">Make:</label>
       <input type="text" name="inv_make" id="inv_make" required value="<%= inv_make %>" placeholder="Min of 3 characters">

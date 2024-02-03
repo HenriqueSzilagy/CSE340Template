@@ -27,24 +27,20 @@ Util.getNav = async function (req, res, next) {
 /* ************************
  * Constructs the select drop down
  ************************** */
-Util.getSelect = async function (req, res, next) {
+Util.getSelect = async function (getSelectId) {
   let data = await invModel.getClassifications();
-  let select = "<select>";
-
+  let select = '<label for="classification_id">Select Classification: </label>';
+  select += '<select id="classification_id" name="classification_id">';
   data.rows.forEach((row) => {
-    select +=
-      '<option value="' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      '</option>';
+    select += '<option value="' + row.classification_id + '"';
+    if (row.classification_id == getSelectId) {
+      select += ' selected';
+    }
+    select += '>' + row.classification_name + '</option>';
   });
-
-  select += "</select>";
+  select += '</select>';
   return select;
-};
+}
 
 
 /* **************************************

@@ -347,6 +347,67 @@ div#managementLinks {
   margin-left: 4vw;
 }
 
+h1#management {
+  display: flex;
+  margin-left: 1vw;
+}
+
+#managementLinks a {
+  font-size: 2.5vw;
+}
+
+h1#newClassification {
+  display: flex;
+  margin-left: 1vw;
+}
+
+div#newClassificationBlock {
+  background-color: #a466ff;
+    border: solid #8f50eb;
+    border-radius: 2vw;
+    margin-left: 11vw;
+    margin-right: 9vw;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4vw;
+}
+
+div#newClassificationBlock form {
+  display: flex;
+    flex-direction: column;
+    border: solid 0.06vw #e1e0e0;
+    margin: 2vw;
+    padding: 1vw;
+    border-radius: 1vw;
+
+}
+
+div#newClassificationBlock button {
+  margin-top: 4vw;
+  width: 18vw;
+  margin-left: 2vw;
+}
+
+div#newClassificationBlock input {
+font-size: 3.5vw;
+    margin-left: 2vw;
+    margin-right: 9vw;
+}
+
+div#newClassificationBlock p ,div#newClassificationBlock label{
+  margin-left: 2vw;
+} 
+div#newClassificationBlock label{
+  font-size: 4.5vw;
+
+}
+
+
+
+
+
+
+
 @media screen and (min-width: 1024px) {
   
   div#loginBlock, div#registerBlock{

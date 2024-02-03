@@ -31,7 +31,18 @@ async function buildRegister(req, res, next) {
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
-
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the registration.')
+    res.status(500).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: null,
+    })
+  }
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,
@@ -47,6 +58,7 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      errors: null,
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
@@ -58,27 +70,4 @@ async function registerAccount(req, res) {
 }
 
 
-/* ****************************************
-*  Process Login
-* *************************************** */
-async function loginAccount(req, res) {
-  let nav = await utilities.getNav();
-  const { account_email, account_password } = req.body;
-
-  // Authenticate the user
-  const authResult = await accountModel.authenticateAccount(account_email, account_password);
-
-  if (authResult) {
-    req.session.user = authResult; // Assuming you have a session handling middleware
-    res.redirect("/dashboard"); // Redirect to the dashboard or any other page after successful login
-  } else {
-    req.flash("error", "Invalid email or password. Please try again.");
-    res.status(401).render("account/login", {
-      title: "Login",
-      nav,
-      account_email,
-    });
-  }
-}
-
-module.exports = { buildLogin, buildRegister, registerAccount, loginAccount,}
+module.exports = { buildLogin, buildRegister, registerAccount,}

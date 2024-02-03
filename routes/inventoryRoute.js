@@ -18,6 +18,8 @@ router.get("/", utilities.handleErrors(invController.buildAddClassification));
 
 router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification));
 
+router.get('/add-inventory', utilities.handleErrors(invController.buildAddInventory));
+
 router.post(
   "/add-classification",
   validate.classificationRules(),

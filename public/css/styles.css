@@ -401,9 +401,43 @@ div#newClassificationBlock label{
   font-size: 4.5vw;
 
 }
+div#newInventoryBlock{
+  background-color: #a466ff;
+  border: solid #8f50eb;
+  border-radius: 2vw;
+  margin-left: 11vw;
+  margin-right: 9vw;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4vw;
+}
+div#newInventoryBlock form {
+display: flex;
+    flex-direction: column;
+    border: solid 0.06vw #e1e0e0;
+    margin: 2vw;
+    padding: 1vw;
+    border-radius: 1vw;
+}
+div#newInventoryBlock label {
+  font-size: 3.5vw;
+  margin-left: 2vw;
+  margin-bottom: 1vw;
+}
 
-
-
+div#newInventoryBlock input,div#newInventoryBlock select  {
+  font-size: 3.5vw;
+  margin-left: 2vw;
+  margin-right: 9vw;
+  margin-bottom: 2vw;
+}
+div#newInventoryBlock button {
+  width: 17vw;
+  height: 6vw;
+  font-weight: bold;
+  font-size: medium;
+  margin-left: 2vw;
+}
 
 
 

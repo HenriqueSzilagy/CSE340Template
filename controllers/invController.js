@@ -67,7 +67,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 * *************************************** */
 invCont.buildAddInventory = async function (req, res, next) {
     let nav = await utilities.getNav();
-    let select = await utilities.getSelect();
+    let classification = await utilities.selectClassification();
     const {
       inv_make,
       inv_model,
@@ -83,7 +83,7 @@ invCont.buildAddInventory = async function (req, res, next) {
     res.render("./inventory/add-inventory", {
       title: "Add New Vehicle",
       nav,
-      select,
+      classification,
       inv_make,
       inv_model,
       inv_year,
@@ -131,18 +131,16 @@ invCont.addNewClassification = async function (req, res) {
 invCont.addNewVehicle = async function (req, res) {
   try {
     let nav = await utilities.getNav();
-    let select = await utilities.getSelect(); // Adicionado parênteses
-
+    let classification = await utilities.selectClassification(); // Adicionado parênteses
     const {inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
-
     const addResult = await invModel.addNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id);
-
+    
     if (addResult) {
       req.flash("notice", `Successfully added a new vehicle.`);
       res.status(201).render("./inventory/add-inventory", {
         title: "Add New Vehicle",
         nav,
-        select,
+        classification,
         inv_make,
         inv_model,
         inv_year,
@@ -160,7 +158,7 @@ invCont.addNewVehicle = async function (req, res) {
       res.status(501).render("./inventory/add-inventory", {
         title: "Add New Vehicle",
         nav,
-        select,
+        classification,
         inv_make,
         inv_model,
         inv_year,

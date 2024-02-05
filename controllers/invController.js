@@ -1,3 +1,4 @@
+
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
@@ -177,6 +178,8 @@ invCont.addNewVehicle = async function (req, res) {
     res.status(500).send("Internal Server Error");
   }
 };
+
+
 
 
 

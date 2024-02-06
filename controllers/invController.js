@@ -36,13 +36,19 @@ invCont.buildVehicleDetails = async function (req, res, next) {
     grid,
   })
 }
+
+/* ***************************
+ *  Build management view
+ * ************************** */
  
 invCont.buildManagement = async function(req, res, next) {
   const nav = await utilities.getNav();
+  const classificationSelect = await utilities.selectClassification()
   res.render("./inventory/management", {
     title: "Vehicle Management",
     nav,
     errors: null,
+    classificationSelect,
   });
 };
 

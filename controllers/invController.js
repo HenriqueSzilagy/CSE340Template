@@ -37,20 +37,6 @@ invCont.buildVehicleDetails = async function (req, res, next) {
   })
 }
 
-/* ***************************
- *  Build management view
- * ************************** */
- 
-invCont.buildManagement = async function(req, res, next) {
-  const nav = await utilities.getNav();
-  const classificationSelect = await utilities.selectClassification()
-  res.render("./inventory/management", {
-    title: "Vehicle Management",
-    nav,
-    errors: null,
-    classificationSelect,
-  });
-};
 
 invCont.intentionalError = (req, res, next) => {
   throw new Error("Intentional 500-type error");
@@ -138,7 +124,7 @@ invCont.addNewClassification = async function (req, res) {
 invCont.addNewVehicle = async function (req, res) {
   try {
     let nav = await utilities.getNav();
-    let classification = await utilities.selectClassification(); // Adicionado parênteses
+    let classification = await utilities.selectClassification(); 
     const {inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
     const addResult = await invModel.addNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id);
     
@@ -185,8 +171,33 @@ invCont.addNewVehicle = async function (req, res) {
   }
 };
 
+/* ***************************
+ *  Build management view
+ * ************************** */
+ 
+invCont.buildManagement = async function(req, res, next) {
+  const nav = await utilities.getNav();
+  const classificationSelect = await utilities.selectClassification()
+  res.render("./inventory/management", {
+    title: "Vehicle Management",
+    nav,
+    errors: null,
+    classificationSelect,
+  });
+};
 
-
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
 
 
 module.exports = invCont

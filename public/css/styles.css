@@ -443,8 +443,33 @@ div#newInventoryBlock button {
   margin-left: 2vw;
 }
 
+div#manageInventory {
+  margin-left: 1vw;
+}
 
+div#manageInventory h2 {
+  font-size: 5vw;
+}
 
+div#manageInventory p {
+  font-size: 3vw;
+}
+
+div#manageInventory label, div#manageInventory select {
+  font-size: 3vw;
+}
+
+table#inventoryDisplay {
+  font-size: 3vw;
+  margin-top: 1vw;
+}
+
+tr#inventoryDisplay{
+  margin-top: 1vw;
+}
+table#inventoryDisplay a {
+  margin-left: 1vw;
+}
 
 @media screen and (min-width: 1024px) {
   

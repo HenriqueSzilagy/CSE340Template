@@ -46,8 +46,7 @@ Util.selectClassification = async function (selectedClassificationId) {
     return select;
   } catch (error) {
     console.error("Error generating classification select: " + error);
-    // Trate o erro conforme necessário
-    // Neste exemplo, estou reenviando o erro para o chamador
+
     throw error;
   }
 }

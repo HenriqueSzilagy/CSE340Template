@@ -92,6 +92,40 @@ validater.inventoryRules = () => {
     next(); // Move to the next middleware (or route handler) if there are no validation errors
   };
   
+
+  
+  /* ******************************
+   * Check data and return errors or  continue to Inventory update
+   * ***************************** */
+  validater.checkUpdateData = async (req, res, next) => {
+    const { inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles,  inv_color, classification_id} = req.body
+    let classification = await utilities.selectClassification(classification_id)
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav(); 
+      res.render("inventory/edit-inventory", {
+        errors,
+        title: "Edit " + inv_model + inv_make,
+        nav,
+        classification,
+        inv_id,
+        inv_make, 
+        inv_model, 
+        inv_year, 
+        inv_description, 
+        inv_image, 
+        inv_thumbnail, 
+        inv_price, 
+        inv_miles, 
+        inv_color,
+      });
+      return;
+    }
+  
+    next(); // Move to the next middleware (or route handler) if there are no validation errors
+  };
+  
   
     module.exports = validater 
     

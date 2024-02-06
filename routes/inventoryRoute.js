@@ -41,6 +41,12 @@ router.post(
     validater.checkInventoryData,
     utilities.handleErrors(invController.addNewVehicle))
 
+  // handle the incoming request
+  router.post("/update/", 
+  validater.inventoryRules(),
+  validater.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory))
+
 
 router.get("/intentional-error", (req, res, next) => {
     throw new Error("Intentional 500-type error");

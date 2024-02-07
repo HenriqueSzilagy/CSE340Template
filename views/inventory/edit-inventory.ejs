@@ -15,7 +15,7 @@
   <% } %>
   
   <div id="newInventoryBlock">
-    <form action="/inv/update" method="post">
+    <form id='updateForm' action="/inv/update" method="post">
 
       <label for="inv_make">Make:</label>
       <input type="text" name="inv_make" id="inv_make" required value="<%= inv_make %>" placeholder="Min of 3 characters">
@@ -45,10 +45,12 @@
         <label for="inv_color">Color</label>
         <input type="text" name="inv_color" id="inv_color" required value="<%= inv_color %>">
 
-        <input type="submit" name="submit" value="Update Vehicle">
+        <input type="submit" name="submit" value="Update Vehicle" disabled>
         
         <input type="hidden" name="inv_id"<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
         <input type="hidden" name="classification_id" <% if(locals.classification_id) { %> value="<%= locals.classification_id %>"<% } %>>
 
       </form>
     </div>
+
+    <script src="/js/inv-update.js"></script>

@@ -1,0 +1,40 @@
+<h1>
+    <%= title %>
+  </h1>
+  
+  <%- messages() %>
+  
+  <% if (errors) { %>
+    <ul class="notice">
+      <% errors.array().forEach(error=> { %>
+        <li>
+          <%= error.msg %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+  
+  <div id="newInventoryBlock">
+    <form id='deleteForm' action="/inv/delete" method="post">
+      <p>Confirm Deletion - The delete is permanent.</p>
+
+      <label for="inv_make">Make:</label>
+      <input readonly type="text" name="inv_make" id="inv_make" required value="<%= inv_make %>" placeholder="Min of 3 characters">
+      
+      <label for="inv_model">Model:</label>
+      <input readonly type="text" name="inv_model" id="inv_model" required value="<%= inv_model %>" placeholder="Min of 3 characters">
+      
+      <label for="inv_price">Price</label>
+      <input readonly type="text" name="inv_price" id="inv_price" required value="<%= inv_price %>" placeholder="decimal or integer">
+        
+      <label for="inv_year">Year</label>
+      <input readonly type="text" name="inv_year" id="inv_year" required value="<%= inv_year %>" placeholder="4-digit year">
+        
+      <input type="submit" name="submit" value="delete Vehicle">
+        
+      <input type="hidden" name="inv_id"<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+      <input type="hidden" name="classification_id" <% if(locals.classification_id) { %> value="<%= locals.classification_id %>"<% } %>>
+
+      </form>
+    </div>
+

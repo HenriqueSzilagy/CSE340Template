@@ -328,6 +328,9 @@ h1#login, h1#register {
   text-align: center;
 }
 
+.error li {
+  color: red;
+}
 
 .notice {
   list-style-type: none;

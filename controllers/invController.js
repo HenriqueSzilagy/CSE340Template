@@ -47,143 +47,188 @@ invCont.intentionalError = (req, res, next) => {
 *  Deliver add classification view
 * *************************************** */
 invCont.buildAddClassification = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("./inventory/add-classification", {
-    title: "Add New Classification",
-    nav,
-    errors: null,
-  })
+  utilities.checkPermission(req, res, async () => {
+    try {
+      if (res.locals.loggedin && res.locals.accountData.account_type === "Admin") {
+        let nav = await utilities.getNav();
+        res.render("./inventory/add-classification", {
+          title: "Add New Classification",
+          nav,
+          errors: null,
+        });
+      } else {
+        // Se não tiver permissão, redirecione ou manipule de acordo
+        req.flash("error", "Access forbidden. Only admins are allowed.");
+        res.redirect("/");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 };
 
 /* ****************************************
 *  Deliver add inventory view
 * *************************************** */
 invCont.buildAddInventory = async function (req, res, next) {
-    let nav = await utilities.getNav();
-    let classification = await utilities.selectClassification();
-    const {
-      inv_make,
-      inv_model,
-      inv_year,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_miles,
-      inv_color,
-      classification_id
-    } = req.body;
-    res.render("./inventory/add-inventory", {
-      title: "Add New Vehicle",
-      nav,
-      classification,
-      inv_make,
-      inv_model,
-      inv_year,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_miles,
-      inv_color,
-      classification_id,
-      errors: null,
-    });
+  utilities.checkPermission(req, res, async () => {
+    try {
+      if (res.locals.loggedin && res.locals.accountData.account_type === "Admin") {
+        let nav = await utilities.getNav();
+        let classification = await utilities.selectClassification();
+        const {
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id
+        } = req.body;
+        res.render("./inventory/add-inventory", {
+          title: "Add New Vehicle",
+          nav,
+          classification,
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id,
+          errors: null,
+        });
+      } else {
+        // Se não tiver permissão, redirecione ou manipule de acordo
+        req.flash("error", "Access forbidden. Only admins are allowed.");
+        res.redirect("/");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 };
 
 /* ****************************************
 *  Process add-Classification
 * *************************************** */
 invCont.addNewClassification = async function (req, res) {
-  let nav = await utilities.getNav();
-  const { classification_name } = req.body;
-
-  const addResult = await invModel.addNewClassification(classification_name);
-
-  if (addResult) {
-    await utilities.updateNav(); // Chame a função de atualização da navegação
-    req.flash("notice", `Successfully added ${classification_name} classification.`);
-    res.status(201).render("./inventory/add-classification", {
-      title: "Add New Classification",
-      nav, 
-      errors:null,
-    });
-  } else {
-    req.flash("notice", `Failed to add ${classification_name} classification.`);
-    res.status(501).render("./inventory/add-classification", {
-      title: "Add New Classification",
-      nav, 
-      errors:null,
-    });
-  }
+  utilities.checkPermission(req, res, async () => {
+    try {
+      let nav = await utilities.getNav();
+      const { classification_name } = req.body;
+  
+      const addResult = await invModel.addNewClassification(classification_name);
+  
+      if (addResult) {
+        await utilities.updateNav(); // Chame a função de atualização da navegação
+        req.flash("notice", `Successfully added ${classification_name} classification.`);
+        res.status(201).render("./inventory/add-classification", {
+          title: "Add New Classification",
+          nav, 
+          errors:null,
+        });
+      } else {
+        req.flash("notice", `Failed to add ${classification_name} classification.`);
+        res.status(501).render("./inventory/add-classification", {
+          title: "Add New Classification",
+          nav, 
+          errors:null,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 };
 
 /* ****************************************
 *  Process add-Inventory
 * *************************************** */
 invCont.addNewVehicle = async function (req, res) {
-  try {
-    let nav = await utilities.getNav();
-    let classification = await utilities.selectClassification(); 
-    const {inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
-    const addResult = await invModel.addNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id);
-    if (addResult) {
-      req.flash("notice", `Successfully added a new vehicle.`);
-      res.status(201).render("./inventory/add-inventory", {
-        title: "Add New Vehicle",
-        nav,
-        classification,
-        inv_make,
-        inv_model,
-        inv_year,
-        inv_description,
-        inv_image,
-        inv_thumbnail,
-        inv_price,
-        inv_miles,
-        inv_color,
-        classification_id,
-        errors: null,
-      });
-    } else {
-      req.flash("notice", `Failed to add a new vehicle classification.`);
-      res.status(501).render("./inventory/add-inventory", {
-        title: "Add New Vehicle",
-        nav,
-        classification,
-        inv_make,
-        inv_model,
-        inv_year,
-        inv_description,
-        inv_image,
-        inv_thumbnail,
-        inv_price,
-        inv_miles,
-        inv_color,
-        classification_id,
-        errors: null,
-      });
+  utilities.checkPermission(req, res, async () => {
+    try {
+      let nav = await utilities.getNav();
+      let classification = await utilities.selectClassification();
+      const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
+      const addResult = await invModel.addNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id);
+      
+      if (addResult) {
+        req.flash("notice", `Successfully added a new vehicle.`);
+        res.status(201).render("./inventory/add-inventory", {
+          title: "Add New Vehicle",
+          nav,
+          classification,
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id,
+          errors: null,
+        });
+      } else {
+        req.flash("notice", `Failed to add a new vehicle classification.`);
+        res.status(501).render("./inventory/add-inventory", {
+          title: "Add New Vehicle",
+          nav,
+          classification,
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id,
+          errors: null,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
+  });
 };
 
 /* ***************************
  *  Build management view
  * ************************** */
  
-invCont.buildManagement = async function(req, res, next) {
-  const nav = await utilities.getNav();
-  const classificationSelect = await utilities.selectClassification()
-  res.render("./inventory/management", {
-    title: "Vehicle Management",
-    nav,
-    errors: null,
-    classificationSelect,
+invCont.buildManagement = async function (req, res, next) {
+  utilities.checkPermission(req, res, async () => {
+    if (res.locals.loggedin && (res.locals.accountData.account_type === 'Admin' || res.locals.accountData.account_type === 'Employee')) {
+      const nav = await utilities.getNav();
+      const classificationSelect = await utilities.selectClassification();
+      res.render('./inventory/management', {
+        title: 'Vehicle Management',
+        nav,
+        errors: null,
+        classificationSelect,
+      });
+    } else {
+      // Se não tiver permissão, redirecione ou manipule de acordo
+      req.flash('error', 'Access forbidden. Only admins are allowed.');
+      res.redirect('/');
+    }
   });
 };
+
 
 /* ***************************
  *  Return Inventory by Classification As JSON
@@ -201,126 +246,159 @@ invCont.getInventoryJSON = async (req, res, next) => {
 /* ***************************
 *  Build edit inventory view
 * ************************** */
-invCont.editInventoryView  = async function (req, res, next) {
-    const inv_id = parseInt(req.params.inv_id);
-    let nav = await utilities.getNav();
-    const itemData = await invModel.getVehicleDetails(inv_id);
-    const classificationSelect = await utilities.selectClassification(itemData.classification_id);
-    const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
-    res.render("./inventory/edit-inventory", {
-      title: "Edit " + itemName,
-    nav,
-    classificationSelect: classificationSelect,
-    errors: null,
-    inv_id: itemData.inv_id,
-    inv_make: itemData.inv_make,
-    inv_model: itemData.inv_model,
-    inv_year: itemData.inv_year,
-    inv_description: itemData.inv_description,
-    inv_image: itemData.inv_image,
-    inv_thumbnail: itemData.inv_thumbnail,
-    inv_price: itemData.inv_price,
-    inv_miles: itemData.inv_miles,
-    inv_color: itemData.inv_color,
-    classification_id: itemData.classification_id
-  })
-}
+invCont.editInventoryView = async function (req, res, next) {
+  utilities.checkPermission(req, res, async () => {
+    if (res.locals.loggedin && (res.locals.accountData.account_type === 'Admin' || res.locals.accountData.account_type === 'Employee')) {
+      const inv_id = parseInt(req.params.inv_id);
+      let nav = await utilities.getNav();
+      const itemData = await invModel.getVehicleDetails(inv_id);
+      const classificationSelect = await utilities.selectClassification(itemData.classification_id);
+      const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+      res.render('./inventory/edit-inventory', {
+        title: 'Edit ' + itemName,
+        nav,
+        classificationSelect: classificationSelect,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_description: itemData.inv_description,
+        inv_image: itemData.inv_image,
+        inv_thumbnail: itemData.inv_thumbnail,
+        inv_price: itemData.inv_price,
+        inv_miles: itemData.inv_miles,
+        inv_color: itemData.inv_color,
+        classification_id: itemData.classification_id,
+      });
+    } else {
+      // Se não tiver permissão, redirecione ou manipule de acordo
+      req.flash('error', 'Access forbidden. Only admins are allowed.');
+      res.redirect('/');
+    }
+  });
+};
+
 
 
 /* ***************************
  *  Update Inventory Data
  * ************************** */
 invCont.updateInventory = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  const {
-    inv_id,
-    inv_make,
-    inv_model,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_year,
-    inv_miles,
-    inv_color,
-    classification_id,
-  } = req.body
-  const updateResult = await invModel.updateInventory(
-    inv_id,  
-    inv_make,
-    inv_model,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_year,
-    inv_miles,
-    inv_color,
-    classification_id
-  )
+  utilities.checkPermission(req, res, async () => {
+    if (res.locals.loggedin && (res.locals.accountData.account_type === 'Admin' || res.locals.accountData.account_type === 'Employee')) {
+      let nav = await utilities.getNav();
+      const {
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id,
+      } = req.body;
+      const updateResult = await invModel.updateInventory(
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id
+      );
 
-  if (updateResult) {
-    const itemName = updateResult.inv_make + " " + updateResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
-    res.redirect("/inv/")
-  } else {
-    const classificationSelect = await utilities.selectClassification(classification_id)
-    const itemName = `${inv_make} ${inv_model}`
-    req.flash("notice", "Sorry, the insert failed.")
-    res.status(501).render("inventory/edit-inventory", {
-    title: "Edit " + itemName,
-    nav,
-    classificationSelect: classificationSelect,
-    errors: null,
-    inv_id,
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_miles,
-    inv_color,
-    classification_id
-    })
-  }
-}
+      if (updateResult) {
+        const itemName = updateResult.inv_make + ' ' + updateResult.inv_model;
+        req.flash('notice', `The ${itemName} was successfully updated.`);
+        res.redirect('/inv/');
+      } else {
+        const classificationSelect = await utilities.selectClassification(classification_id);
+        const itemName = `${inv_make} ${inv_model}`;
+        req.flash('notice', 'Sorry, the insert failed.');
+        res.status(501).render('inventory/edit-inventory', {
+          title: 'Edit ' + itemName,
+          nav,
+          classificationSelect: classificationSelect,
+          errors: null,
+          inv_id,
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id,
+        });
+      }
+    } else {
+      // Se não tiver permissão, redirecione ou manipule de acordo
+      req.flash('error', 'Access forbidden. Only admins are allowed.');
+      res.redirect('/');
+    }
+  });
+};
 
 
 // Delete inventory view
-invCont.buildDeleteInventortView  = async function (req, res, next) {
-  const inv_id = parseInt(req.params.inv_id);
-  let nav = await utilities.getNav();
-  const itemData = await invModel.getVehicleDetails(inv_id);
-  const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
-  res.render("./inventory/delete-confirm", {
-    title: "delete " + itemName,
-  nav,
-  errors: null,
-  inv_id: itemData.inv_id,
-  inv_make: itemData.inv_make,
-  inv_model: itemData.inv_model,
-  inv_year: itemData.inv_year,
-  inv_price: itemData.inv_price,
-})
-}
+invCont.buildDeleteInventortView = async function (req, res, next) {
+  utilities.checkPermission(req, res, async () => {
+    if (res.locals.loggedin && (res.locals.accountData.account_type === 'Admin' || res.locals.accountData.account_type === 'Employee')) {
+      const inv_id = parseInt(req.params.inv_id);
+      let nav = await utilities.getNav();
+      const itemData = await invModel.getVehicleDetails(inv_id);
+      const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+      res.render('./inventory/delete-confirm', {
+        title: 'delete ' + itemName,
+        nav,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_price: itemData.inv_price,
+      });
+    } else {
+      // Se não tiver permissão, redirecione ou manipule de acordo
+      req.flash('error', 'Access forbidden. Only admins are allowed.');
+      res.redirect('/');
+    }
+  });
+};
 
 //Delete inventory
 invCont.deleteInventory = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  const inv_id = parseInt(req.body.inv_id)
-  const deleteResult = await invModel.deleteInventory(inv_id)
+  utilities.checkPermission(req, res, async () => {
+    // Verificar se o usuário está autenticado e é um administrador
+    if (res.locals.loggedin && (res.locals.accountData.account_type === 'Admin' || res.locals.accountData.account_type === 'Employee')) {
+      let nav = await utilities.getNav();
+      const inv_id = parseInt(req.body.inv_id);
+      const deleteResult = await invModel.deleteInventory(inv_id);
 
-  if (deleteResult) {
-    req.flash("notice", `The delete was successfully .`)
-    res.redirect("/inv/")
-  } else {
-    req.flash("notice", "Sorry, the delete failed.")
-    res.redirect("inv/delete/(inv_id)")
+      if (deleteResult) {
+        req.flash('notice', `The delete was successful.`);
+        res.redirect('/inv/');
+      } else {
+        req.flash('notice', 'Sorry, the delete failed.');
+        res.redirect('/inv/delete/' + inv_id);
+      }
+    } else {
+      // Se não tiver permissão, redirecione ou manipule de acordo
+      req.flash('error', 'Access forbidden. Only admins are allowed.');
+      res.redirect('/');
     }
-  }
-
+  });
+};
 
 
 module.exports = invCont;

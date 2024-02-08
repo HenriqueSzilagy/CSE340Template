@@ -155,6 +155,38 @@ Util.checkJWTToken = (req, res, next) => {
   }
 };
 
+Util.checkPermission = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("error", "Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        
+        // Verifique se o tipo de conta permite acesso
+        if (accountData.account_type === "Employee" || accountData.account_type === "Admin") {
+          // Se permitido, armazene os dados da conta e o status de login nos locais de resposta
+          res.locals.accountData = accountData;
+          res.locals.loggedin = 1; 
+          next();
+        } else {
+          // Caso contrário, redirecione para uma rota adequada ou manipule de forma diferente
+          req.flash("error", "Access forbidden. Only employees and admins are allowed.");
+          return res.redirect("/"); 
+        }
+      }
+    );
+  } else {
+    // Se o token não estiver presente, defina o status de login como 0 e passe para o próximo middleware
+    res.locals.loggedin = 0; 
+    next();
+  }
+};
+
 
 /* ****************************************
  *  Check Login

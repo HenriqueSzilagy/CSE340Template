@@ -10,6 +10,14 @@ router.get('/', utilities.checkLogin, utilities.handleErrors(accountController.a
 
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
+
+router.get('/register', utilities.handleErrors(accountController.buildRegister));
+
+router.get('/register', utilities.handleErrors(accountController.buildRegister));
+
+router.get("/update",  utilities.handleErrors(accountController.BuildUpdateView))
+
+
 // Process the registration data
 router.post(
     "/register",
@@ -19,11 +27,12 @@ router.post(
   )
 
  // Process the login attempt
- router.post(
-  "/login", regValidate.loginRules(), 
-  regValidate.checkLoginData,
-  utilities.handleErrors(accountController.accountLogin)
-)
+ router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
 
+router.post("/update",  regValidate.updateAccountRules(), regValidate.checkUpdateData, utilities.handleErrors(accountController.updateAccount))
+
+router.post("/change", regValidate.updatePasswordRules(), regValidate.checkUpdateData, utilities.handleErrors(accountController.updatePassword))
+
+router.get("/logout",  utilities.checkLogin, utilities.handleErrors(accountController.logout))
 
 module.exports = router;

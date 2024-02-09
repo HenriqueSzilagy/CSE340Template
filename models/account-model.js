@@ -41,6 +41,15 @@ async function getAccountByEmail (account_email) {
   }
 }
 
+async function getAccountDetails(accountId) {
+  try {
+    const query = 'SELECT account_name, account_type FROM accounts WHERE account_id = $1 ';
+    const [rows] = await db.query(query, [accountId]);
+    return rows[0]; // Assume que há apenas uma linha com esses detalhes para o accountId fornecido
+  } catch (error) {
+    throw error;
+  }
+}
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail};
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetails};

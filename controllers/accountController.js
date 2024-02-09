@@ -107,13 +107,22 @@ async function accountLogin(req, res) {
  /* ****************************************
 *  Deliver accountManagement view
 * *************************************** */
-async function accountManagement (req, res, next) {
-  let nav = await utilities.getNav()
+async function accountManagement(req, res, next) {
+  let nav = await utilities.getNav();
+  let account_id = res.locals.accountData.account_id
+  let account_firstname = res.locals.accountData.account_firstname
+  let account_type = res.locals.accountData.account_type
+
+
+
   res.render("./account/accountManagement", {
     title: "Account Management",
     nav,
     errors: null,
-  })
+    account_firstname,
+    account_type,
+    account_id,
+  });
 }
 
 

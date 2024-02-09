@@ -121,23 +121,16 @@ validate.updateAccountRules = () => {
     .isEmail()
     .normalizeEmail() // refer to validator.js docs
     .withMessage("A valid email is required.")
-    .custom(async (account_email, { req }) => {
-      const currentUserEmail = req.body.currentEmail; // Assuming you passed the current email in the request body
-      const newEmail = account_email !== currentUserEmail; // Check if the email is being changed
-
-      if (newEmail) {
-        const emailExists = await accountModel.checkExistingEmail(account_email);
-
-        if (emailExists) {
-          throw new Error("Email already exists. Please use a different email.");
-        }
+    .custom(async (account_email) => {
+      const emailExists = await accountModel.checkExistingEmail(account_email)
+      if (!emailExists){
+        throw new Error("Email doesn't exists. Please log in using your own email")
       }
     }),
 
-  // password is required and must be strong password
-];
-};
-
+    // password is required and must be strong password
+  ]
+}
 validate.updatePasswordRules = () => {
   return [
 body("account_password")

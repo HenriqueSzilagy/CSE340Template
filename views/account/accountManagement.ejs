@@ -13,15 +13,16 @@
 <% } %>
 
 <h1>You're logged in</h1>
-
-  <% if (account_type === 'Client') { %>
-    <h2>Welcome <%= account_firstname %></h2>
-  <% } else if (account_type === 'Employee' || account_type === 'Admin') { %>
-    <h2>Welcome <%= account_firstname %></h2>
-    <h3>Inventory Management</h3>
-    <p><a href="inventory/management">Access Inventory Management</a></p>
-  <% } %>
-    
-  <% if (account_type === 'Client') { %>
-    <p><a href="/account/update">Update Account Information</a></p>
-  <% } %>
+<div id="accountManagementLayout">
+    <% if (account_type === 'Client') { %>
+      <h2>Welcome <%= account_firstname %></h2>
+    <% } else if (account_type === 'Employee' || account_type === 'Admin') { %>
+      <h2>Welcome <%= account_firstname %></h2>
+      <h3>Inventory Management</h3>
+      <p><a href="inventory/management">Access Inventory Management</a></p>
+    <% } %>
+      
+    <% if (account_type === 'Client') { %>
+      <p><a href="/account/update">Update Account Information</a></p>
+    <% } %>
+  </div>

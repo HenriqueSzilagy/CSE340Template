@@ -299,6 +299,23 @@ header #tools {
   border-radius: 1vw;
 
 }
+
+#accountManagementLayout h2 {
+  text-align: center;
+  font-size: 4vw;
+}
+
+#accountManagementLayout h2 {
+  text-align: center;
+  font-size: 4vw;
+}
+
+#accountManagementLayout p, #accountManagementLayout a  {
+  text-align: center;
+  font-size: 3vw;
+}
+
+
 div#loginBlock, div#registerBlock {
   background-color: #a466ff;
   border: solid #8f50eb;

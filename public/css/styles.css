@@ -493,7 +493,7 @@ table#inventoryDisplay a {
 
 #accountManagementLayout h3 {
   text-align: center;
-  font-size: 6vw;
+  font-size: 4vw;
 }
 
 @media screen and (min-width: 1024px) {

@@ -491,6 +491,11 @@ table#inventoryDisplay a {
   margin-left: 1vw;
 }
 
+#accountManagementLayout h3 {
+  text-align: center;
+  font-size: 6vw;
+}
+
 @media screen and (min-width: 1024px) {
   
   div#loginBlock, div#registerBlock{

@@ -215,6 +215,47 @@ async function updatePassword (req, res) {
       })
     }
 }
+async function BuildDeleteView(req, res) {
+  let nav = await utilities.getNav();
+  res.render("account/delete", {
+    title: "Delete Account",
+    nav,
+    errors: null,
+    account_id: res.locals.accountData.account_id,
+    account_firstname: res.locals.accountData.account_firstname,
+    account_lastname: res.locals.accountData.account_lastname,
+    account_email: res.locals.accountData.account_email,
+  });
+}
+
+
+async function deleteAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_password } = req.body;
+  const account_id = res.locals.accountData.account_id;
+
+  try {
+    const deletedAccount = await accountModel.deleteAccount(account_id, account_password); 
+    
+    res.clearCookie('jwt');
+    req.flash("notice", "Account deleted successfully");
+    res.redirect("/"); 
+    
+
+  } catch (error) {
+    console.error("Model error: " + error);
+    req.flash("notice", error.message);
+    res.status(500).render("./account/delete", {
+      title: "Delete Account",
+      nav,
+      errors: null,
+      account_id: res.locals.accountData.account_id,
+      account_firstname: res.locals.accountData.account_firstname,
+      account_lastname: res.locals.accountData.account_lastname,
+      account_email: res.locals.accountData.account_email,
+    });
+  }
+}
 
 async function logout(req, res) {
   res.clearCookie('jwt');
@@ -223,4 +264,5 @@ async function logout(req, res) {
 
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountManagement, accountLogin, BuildUpdateView, updateAccount, updatePassword, logout}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountManagement, accountLogin, BuildUpdateView, updateAccount, updatePassword, deleteAccount, BuildDeleteView, logout}

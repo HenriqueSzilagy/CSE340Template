@@ -1,4 +1,7 @@
 const pool = require("../database/")
+const bcrypt = require("bcryptjs")
+
+
 
 /* *****************************
 *   Register new account
@@ -87,4 +90,39 @@ async function changePassword(hashedPassword, account_id){
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetails, updateAccount, changePassword};
+async function deleteAccount(account_id, account_password) {
+  try {
+    const accountData = await pool.query("SELECT account_password FROM public.account WHERE account_id = $1", [account_id]);
+    
+    if (accountData.rows.length === 0) {
+      throw new Error("Account not found");
+    }
+
+    const storedPassword = accountData.rows[0].account_password;
+
+    try {
+      if (await bcrypt.compare(account_password, storedPassword)) {
+        const deleteQuery = "DELETE FROM public.account WHERE account_id = $1 RETURNING *";
+        const deleteResult = await pool.query(deleteQuery, [account_id]);
+
+        if (deleteResult.rows.length === 0) {
+          throw new Error("Failed to delete account");
+        }
+
+        return deleteResult.rows[0];
+      } else {
+        throw new Error("Incorrect password");
+      }
+    } catch (error) {
+      console.error("Error comparing passwords:", error);
+      throw new Error("An unexpected error occurred. Please try again later.");
+    }
+  } catch (error) {
+    console.error("Model error: " + error);
+    throw error;
+  }
+}
+
+
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountDetails, updateAccount, changePassword, deleteAccount};

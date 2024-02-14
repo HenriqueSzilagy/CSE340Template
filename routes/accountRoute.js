@@ -16,9 +16,14 @@ router.get('/register', utilities.handleErrors(accountController.buildRegister))
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
 
 router.get("/update",  utilities.handleErrors(accountController.BuildUpdateView))
+router.get("/delete", utilities.checkLogin, utilities.handleErrors(accountController.BuildDeleteView));
 
+router.post(
+  "/delete", 
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.deleteAccount)
+  );
 
-// Process the registration data
 router.post(
     "/register",
     regValidate.registationRules(),
